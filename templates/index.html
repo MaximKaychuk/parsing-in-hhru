@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vacancies</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { color: #333; }
+        form { margin-bottom: 20px; }
+        ul { list-style-type: none; padding: 0; }
+        li { margin-bottom: 10px; }
+        a { text-decoration: none; color: #007BFF; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <h1>Vacancies</h1>
+    <form action="{{ url_for('parse') }}" method="post">
+        <label for="pages">Number of pages to parse:</label>
+        <input type="number" id="pages" name="pages" min="1" value="1">
+        <button type="submit">Parse</button>
+    </form>
+    <ul>
+        {% for vacancy in vacancies %}
+        <li>
+            <a href="{{ url_for('vacancy_detail', id=vacancy.id) }}">{{ vacancy.job_title }}</a>
+            - {{ vacancy.location }}
+        </li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('analytics') }}">View Analytics</a>
+</body>
+</html>
